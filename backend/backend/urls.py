@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from accounts.serializers import CutomObtainPairView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('auth/jwt/create/', CutomObtainPairView.as_view(), name='customtoken'),    #override the create JWT token method
+   path('auth/jwt/create/', CutomObtainPairView.as_view(), name='customtoken'),    #override the create JWT token method
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('api/', include("create_map.urls")),
-   
+    
 ]

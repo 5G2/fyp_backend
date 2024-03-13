@@ -8,7 +8,7 @@ User = get_user_model()
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ('id','email', 'first_name','last_name','password')
+        fields = ('id','email', 'username','password')
 
 #to customise what data to be included in JWT token
 class TokenObtainSerializer(TokenObtainPairSerializer):
@@ -16,12 +16,12 @@ class TokenObtainSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
         refresh["email"] = self.user.email
-        refresh["first_name"] = self.user.first_name
-        refresh["last_name"] = self.user.last_name
+        refresh["username"] = self.user.username
 
         data["refresh"] = str(refresh)
         data["access"] = str(refresh.access_token)
-
+        data["role"]=self.user.role
+        data["username"]=self.user.username
         return data
 
 class CutomObtainPairView(TokenObtainPairView):

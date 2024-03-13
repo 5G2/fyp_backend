@@ -18,20 +18,17 @@ class UserAccountManager(BaseUserManager):
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255,null=True)
-    last_name = models.CharField(max_length=255,null=True)
-    is_active = models.BooleanField(default=True)#HARDCODE
-
+    username = models.CharField(max_length=255,null=True)
+    role = models.IntegerField(null=True, default=0)
+    gender = models.IntegerField(null=True, default=0)
+    phone = models.IntegerField(null=True, default=0)
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['last_name','first_name']
+    REQUIRED_FIELDS = ['username','gender','phone']
 
-    def get_full_name(self):
-        return self.last_name
-
-    def get_short_name(self):
-        return self.first_name
+    def get_username(self):
+        return self.username
 
     def __str__(self):
         return self.email
