@@ -22,6 +22,7 @@ class TokenObtainSerializer(TokenObtainPairSerializer):
         data["access"] = str(refresh.access_token)
         data["role"]=self.user.role
         data["username"]=self.user.username
+        data["user_id"]=self.user.id
         return data
 
 class CutomObtainPairView(TokenObtainPairView):
